@@ -60,7 +60,7 @@ class InquiryController extends Controller
             return response()->json([
                 "customerId" => $bills->uuid,
                 "monthUnpaid"=> $bills->month,
-	            "amount" => $bills->amount,
+	            "amount" => number_format($bills->amount, 2, '.', ''),
             ]);
         }
 
