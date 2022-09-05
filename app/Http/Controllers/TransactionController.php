@@ -84,7 +84,16 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return new TransactionSingleResource($transaction);
+        $bill = Bill::where('user_uuid', $transaction->user_uuid)
+              ->first();
+
+        return response()->json([
+            "transactionId" => $transaction->uuid,
+            "status" => $transaction->status,
+            "monthPaid" => $bill->month,
+            "amountPaid" => number_format($bill->amount, 2, '.', ''),
+            "paidAt" => date('Y-m-d h:i:s', strtotime($bill->created_at)),
+        ]);
     }
 
     /**
