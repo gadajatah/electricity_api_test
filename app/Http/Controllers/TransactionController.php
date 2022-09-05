@@ -67,7 +67,7 @@ class TransactionController extends Controller
             ]);
         }
         
-        $transaction = Transaction::first();
+        $transaction = Transaction::find($transaction->uuid);
         return response()->json([
             "status" => 201,
             "customerId" => $transaction->user_uuid,
